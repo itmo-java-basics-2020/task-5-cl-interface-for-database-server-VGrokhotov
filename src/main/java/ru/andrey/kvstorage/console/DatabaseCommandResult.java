@@ -1,6 +1,5 @@
 package ru.andrey.kvstorage.console;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public interface DatabaseCommandResult {
