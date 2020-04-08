@@ -22,7 +22,7 @@ public final class DatabaseImplementation implements Database {
     @Override
     public void createTableIfNotExists(String tableName) throws DatabaseException {
 
-        if (this.tables.containsKey(tableName)){
+        if (this.tables.containsKey(tableName)) {
             throw new DatabaseException( "Table " + tableName + " already exists");
         }
 
@@ -38,7 +38,7 @@ public final class DatabaseImplementation implements Database {
     @Override
     public void write(String tableName, String objectKey, String objectValue) throws DatabaseException {
 
-        if (this.tables.containsKey(tableName)){
+        if (this.tables.containsKey(tableName)) {
             this.tables.get(tableName).put(objectKey, objectValue);
         } else {
             //throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
@@ -49,7 +49,7 @@ public final class DatabaseImplementation implements Database {
     @Override
     public String read(String tableName, String objectKey) throws DatabaseException {
 
-        if (this.tables.containsKey(tableName)){
+        if (this.tables.containsKey(tableName)) {
             return this.tables.get(tableName).getOrDefault(objectKey, null);
             //throw new DatabaseException("no table" + tableName);
         } else {
