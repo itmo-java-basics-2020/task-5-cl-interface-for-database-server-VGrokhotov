@@ -41,7 +41,7 @@ public final class DatabaseImplementation implements Database {
         if (this.tables.containsKey(tableName)) {
             this.tables.get(tableName).put(objectKey, objectValue);
         } else {
-            //throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
+            throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
         }
 
     }
@@ -50,11 +50,13 @@ public final class DatabaseImplementation implements Database {
     public String read(String tableName, String objectKey) throws DatabaseException {
 
         if (this.tables.containsKey(tableName)) {
-            return this.tables.get(tableName).getOrDefault(objectKey, null);
-            //throw new DatabaseException("no table" + tableName);
+            if (this.tables.get(tableName).containsKey(objectKey)){
+                return this.tables.get(tableName).get(objectKey);
+            } else {
+                throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
+            }
         } else {
-            //throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
-            return null;
+            throw new DatabaseException("There is no key " + objectKey + " in table " + tableName);
         }
 
     }

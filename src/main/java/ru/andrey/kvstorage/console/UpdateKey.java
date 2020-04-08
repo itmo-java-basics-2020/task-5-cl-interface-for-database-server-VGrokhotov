@@ -1,9 +1,6 @@
 package ru.andrey.kvstorage.console;
 
 import ru.andrey.kvstorage.exception.DatabaseException;
-import ru.andrey.kvstorage.logic.DatabaseImplementation;
-
-import java.util.Optional;
 
 public class UpdateKey implements DatabaseCommand {
 

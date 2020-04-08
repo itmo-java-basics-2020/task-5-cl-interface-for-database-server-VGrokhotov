@@ -3,7 +3,6 @@ package ru.andrey.kvstorage.console;
 import ru.andrey.kvstorage.exception.DatabaseException;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public enum DatabaseCommands {
 

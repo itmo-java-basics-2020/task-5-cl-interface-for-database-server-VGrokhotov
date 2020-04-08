@@ -1,9 +1,6 @@
 package ru.andrey.kvstorage.console;
 
 import ru.andrey.kvstorage.exception.DatabaseException;
-import ru.andrey.kvstorage.logic.DatabaseImplementation;
-
-import java.util.Optional;
 
 public class CreateTable implements DatabaseCommand {
 
@@ -23,7 +20,6 @@ public class CreateTable implements DatabaseCommand {
         var database = environment.getDatabase(databaseName);
 
         if (database.isPresent()) {
-
             try {
                 database.get().createTableIfNotExists(tableName);
             } catch (DatabaseException e) {
