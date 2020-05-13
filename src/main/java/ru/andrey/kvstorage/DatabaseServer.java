@@ -1,7 +1,9 @@
 package ru.andrey.kvstorage;
 
 import ru.andrey.kvstorage.console.DatabaseCommandResult;
+import ru.andrey.kvstorage.console.DatabaseCommands;
 import ru.andrey.kvstorage.console.ExecutionEnvironment;
+import ru.andrey.kvstorage.exception.DatabaseException;
 
 public class DatabaseServer {
 
@@ -16,6 +18,10 @@ public class DatabaseServer {
     }
 
     DatabaseCommandResult executeNextCommand(String commandText) {
-        throw new UnsupportedOperationException();
+        try {
+            return DatabaseCommands.commandFromInput(env, commandText).execute();
+        } catch (DatabaseException e){
+            return DatabaseCommandResult.error(e.getMessage());
+        }
     }
 }
