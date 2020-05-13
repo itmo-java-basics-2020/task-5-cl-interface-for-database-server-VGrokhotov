@@ -2,16 +2,23 @@ package ru.andrey.kvstorage.console;
 
 import ru.andrey.kvstorage.exception.DatabaseException;
 
-public class CreateTable implements DatabaseCommand {
+public class ReadKeyCommand implements DatabaseCommand {
 
     private final ExecutionEnvironment environment;
     private final String databaseName;
     private final String tableName;
+    private final String objectKey;
 
-    public CreateTable(ExecutionEnvironment environment, String databaseName, String tableName) {
+    public ReadKeyCommand(
+            ExecutionEnvironment environment,
+            String databaseName,
+            String tableName,
+            String objectKey
+    ) {
         this.environment = environment;
         this.databaseName = databaseName;
         this.tableName = tableName;
+        this.objectKey = objectKey;
     }
 
     @Override
@@ -21,14 +28,13 @@ public class CreateTable implements DatabaseCommand {
 
         if (database.isPresent()) {
             try {
-                database.get().createTableIfNotExists(tableName);
+                return DatabaseCommandResult.success(database.get().read(tableName, objectKey));
             } catch (DatabaseException e) {
                 return DatabaseCommandResult.error(e.getMessage());
             }
         } else {
-            return DatabaseCommandResult.error("Database" + databaseName + "don't exists");
+            return DatabaseCommandResult.error(String.format("Database %s don't exists", databaseName));
         }
 
-        return DatabaseCommandResult.success(null);
     }
 }

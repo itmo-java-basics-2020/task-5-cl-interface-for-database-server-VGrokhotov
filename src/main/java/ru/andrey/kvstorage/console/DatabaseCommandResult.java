@@ -17,20 +17,20 @@ public interface DatabaseCommandResult {
     }
 
     static DatabaseCommandResult success(String result){
-        return new DatabaseCommandResultImplementation(result, null, DatabaseCommandStatus.SUCCESS);
+        return new DatabaseCommandResultImpl(result, null, DatabaseCommandStatus.SUCCESS);
     }
 
     static DatabaseCommandResult error(String message){
-        return new DatabaseCommandResultImplementation(null, message, DatabaseCommandStatus.FAILED);
+        return new DatabaseCommandResultImpl(null, message, DatabaseCommandStatus.FAILED);
     }
 
-    final class DatabaseCommandResultImplementation implements DatabaseCommandResult {
+    final class DatabaseCommandResultImpl implements DatabaseCommandResult {
 
         private final String result;
         private final String errorMessage;
         private final DatabaseCommandStatus status;
 
-        public DatabaseCommandResultImplementation(String result, String errorMessage, DatabaseCommandStatus status) {
+        public DatabaseCommandResultImpl(String result, String errorMessage, DatabaseCommandStatus status) {
             this.result = result;
             this.errorMessage = errorMessage;
             this.status = status;
@@ -48,7 +48,7 @@ public interface DatabaseCommandResult {
 
         @Override
         public boolean isSuccess() {
-            return status.equals(DatabaseCommandStatus.SUCCESS);
+            return status == DatabaseCommandStatus.SUCCESS;
         }
 
         @Override
@@ -58,10 +58,7 @@ public interface DatabaseCommandResult {
 
         @Override
         public String toString() {
-            return "DatabaseCommandResultImplementation:" +
-                    "result = \"" + result + '\"' +
-                    ", errorMessage = \"" + errorMessage + '\"' +
-                    ", status = " + status;
+            return String.format("DatabaseCommandResultImplementation: result = \"%s\", errorMessage = \"%s\", status = %s" , result, errorMessage, status);
         }
     }
 

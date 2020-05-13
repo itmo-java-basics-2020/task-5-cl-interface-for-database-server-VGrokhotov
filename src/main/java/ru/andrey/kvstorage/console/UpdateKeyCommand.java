@@ -2,7 +2,7 @@ package ru.andrey.kvstorage.console;
 
 import ru.andrey.kvstorage.exception.DatabaseException;
 
-public class UpdateKey implements DatabaseCommand {
+public class UpdateKeyCommand implements DatabaseCommand {
 
     private final ExecutionEnvironment environment;
     private final String databaseName;
@@ -10,7 +10,7 @@ public class UpdateKey implements DatabaseCommand {
     private final String objectKey;
     private final String objectValue;
 
-    public UpdateKey(
+    public UpdateKeyCommand(
             ExecutionEnvironment environment,
             String databaseName,
             String tableName,
@@ -38,7 +38,7 @@ public class UpdateKey implements DatabaseCommand {
                 return DatabaseCommandResult.error(e.getMessage());
             }
         } else {
-            return DatabaseCommandResult.error("Database" + databaseName + "don't exists");
+            return DatabaseCommandResult.error(String.format("Database %s don't exists", databaseName));
         }
     }
 }

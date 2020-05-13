@@ -10,7 +10,7 @@ public enum DatabaseCommands {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment environment, String... options) throws DatabaseException {
             if (isArgumentsAmountCorrect(options.length)) {
-                return new CreateDatabase(environment, options[1]);
+                return new CreateDatabaseCommand(environment, options[1]);
             }
             throw new DatabaseException("Incorrect amount of arguments");
         }
@@ -25,7 +25,7 @@ public enum DatabaseCommands {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment environment, String... options) throws DatabaseException {
             if (isArgumentsAmountCorrect(options.length)) {
-                return new CreateTable(environment, options[1], options[2]);
+                return new CreateTableCommand(environment, options[1], options[2]);
             }
             throw new DatabaseException("Incorrect amount of arguments");
         }
@@ -40,7 +40,7 @@ public enum DatabaseCommands {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment environment, String... options) throws DatabaseException {
             if (isArgumentsAmountCorrect(options.length)) {
-                return new UpdateKey(environment, options[1], options[2], options[3], options[4]);
+                return new UpdateKeyCommand(environment, options[1], options[2], options[3], options[4]);
             }
             throw new DatabaseException("Incorrect amount of arguments");
         }
@@ -55,7 +55,7 @@ public enum DatabaseCommands {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment environment, String... options) throws DatabaseException {
             if (isArgumentsAmountCorrect(options.length)) {
-                return new ReadKey(environment, options[1], options[2], options[3]);
+                return new ReadKeyCommand(environment, options[1], options[2], options[3]);
             }
             throw new DatabaseException("Incorrect amount of arguments");
         }
@@ -81,12 +81,14 @@ public enum DatabaseCommands {
 
         var options = input.split(" ");
 
+        var commandName = options[0];
+
         var databaseCommands = Arrays.toString(DatabaseCommands.values());
 
-        if (!databaseCommands.contains(options[0])){
+        if (!databaseCommands.contains(commandName)){
             throw new DatabaseException("Incorrect command");
         }
 
-        return DatabaseCommands.valueOf(options[0]).getCommand(environment, options);
+        return DatabaseCommands.valueOf(commandName).getCommand(environment, options);
     }
 }
